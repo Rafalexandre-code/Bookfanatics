@@ -91,6 +91,8 @@ session_start();
                     if(isset($_POST["id_del$ident"])){
                         $querydel = "DELETE FROM produto WHERE id= '$ident'";
                         $retornodel = mysqli_query($conexao, $querydel);
+                        $querydelimg = "DELETE FROM imagem WHERE idprod= '$ident'";
+                        $retornodelimg = mysqli_query($conexao, $querydelimg);
                     }
                     elseif(isset($_POST["stock$ident"])){
                     $nome=$_POST["nome$ident"];
@@ -101,21 +103,15 @@ session_start();
 
                     if(isset($_FILES["imagem1$ident"])){
 
-                      
-
                        /*imagem*/
-$imagem1 = $_FILES["imagem1$ident"]['tmp_name'];
+$nome1 = $_FILES["imagem1$ident"]['name'];
 $tamanho1 = $_FILES["imagem1$ident"]['size'];
 $tipo1 = $_FILES["imagem1$ident"]['type'];
-$nome1 = $_FILES["imagem1$ident"]['name'];
-print_r($imagem1);
-    $fp = fopen($imagem1,"rb");
-    $conteudo = fread($fp, $tamanho1);
-    $conteudo = addslashes($conteudo);
-    fclose($fp);
-$queryimg = "UPDATE imagem SET nome_imagem1='$nome1',tamanho_imagem1='$tamanho1',tipo_imagem1='$tipo1',imagem1='$conteudo' WHERE idimagem='$ident'";
-$resimg = mysqli_query($conexao, $queryimg);
+$imagem1 = $_FILES["imagem1$ident"]['tmp_name'];
+print_r($nome1);
 
+$queryimg = "UPDATE imagem SET nome_imagem1='$nome1',tamanho_imagem1='$tamanho1',tipo_imagem1='$tipo1',imagem1='$conteudo' WHERE idprod='$ident'";
+$resimg = mysqli_query($conexao, $queryimg);
                     }
                     }
                     
