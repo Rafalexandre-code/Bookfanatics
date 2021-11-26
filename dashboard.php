@@ -17,7 +17,7 @@ session_start();
 <body>
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index1.css">
+    <link rel="stylesheet" href="index.css">
 
     <!--Cabeçalho-->
     <header class="logo">

@@ -185,7 +185,6 @@ border: 0px solid #000000;
 
 
 /*destaque
-
 .destaque {
     margin-top: 50px;
     display: flex;
@@ -194,23 +193,18 @@ border: 0px solid #000000;
     border-style: solid;
     height: 500px;
 }
-
 .img {
     padding: 20px
 }
-
 .Text {
     text-align: center;
 }
-
 .codigo {
     display: flex
 }
-
 .codigo2 {
     font-size: 11px
 }
-
 .star {
     padding-top: 9px;
     padding-left: 2px;
@@ -580,7 +574,7 @@ border: 0px solid #000000;
 }
 
 .dash_dash {
-    margin-left: 13%;
+
     display: flex;
     justify-content: center;
 }
@@ -974,4 +968,3 @@ border: 0px solid #000000;
               transform: rotateX(-360deg);
     }
   }
-  
