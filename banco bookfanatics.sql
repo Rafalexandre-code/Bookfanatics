@@ -35,5 +35,5 @@ CREATE TABLE dashboard (
                   senha varchar(25) NOT NULL,
                   telefone bigint(14) NOT NULL,
                   uf char(2) DEFAULT NULL,
-                  PRIMARY KEY (`id`)
+                  PRIMARY KEY (id)
                 );
