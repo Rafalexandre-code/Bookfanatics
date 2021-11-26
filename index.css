@@ -317,7 +317,7 @@ border: 0px solid #000000;
 }
 
 .carro {
-    width: 80%;
+    width: 95%;
     display: flex;
     flex-wrap: nowrap;
     margin-top: 0.6rem;

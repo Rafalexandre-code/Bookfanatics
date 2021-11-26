@@ -73,7 +73,7 @@ if(!$conexao) {
 <?php }?>
 </header>
 <?php
-if(isset($_GET['cate'])){
+if(isset($_GET['cate']) && $_GET['cate']!='Tudo'){
 $cate=$_GET['cate'];
     $query = "SELECT * FROM produto Where categoria='$cate'";
     $retorno= mysqli_query($conexao, $query);

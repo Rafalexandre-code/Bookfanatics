@@ -104,7 +104,7 @@ $descri = $exibir["descricao"];
        <p class="descricao_exibir"><?=$exibir['descricao']?></p>
 </div>
 <div>
-   <a class="comprar_exibir" href="comprar.html">Comprar</a>
+   <a class="comprar_exibir" href="comprar.php?id=<?= $id?>">Comprar</a>
 </div>
 
 </div>

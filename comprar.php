@@ -148,20 +148,4 @@
         </div>
     </div>
 
-    <!--Rodape-->
-    <footer class="rodape">
-        <p>BookFanatics</p>
-        <p><a class="caminho" href="sobre.php">Sobre o BookFanatics</a></p>
-        <p>Atendimento ao cliente:+55(13)98134-4580</p>
-        <div class="email">
-            <ion-icon class="email2" name="mail"></ion-icon>
-            <p>Email:Program@gmail.com</p>
-        </div>
-        <div class="email">
-            <ion-icon name="logo-facebook"></ion-icon>
-            <ion-icon name="logo-instagram"></ion-icon>
-            <ion-icon name="logo-twitter"></ion-icon>
-        </div>
-    </footer>
-
 </body>

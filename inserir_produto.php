@@ -38,7 +38,7 @@ $resimg = mysqli_query($conexao, $queryimg);
 
 if($resx && $resimg) {
     $mensa="<img src=imagens/cafe.png";
-    $mensa2="Produto inserida com sucesso!";
+    $mensa2="Produto inserido com sucesso!";
     $mensa3="<br><a href='dashboard.php'>Voltar para a Dashboard</a>";
 }else {
     $mensa="Algo está errado, tente reenviar o formulario!";
@@ -63,7 +63,7 @@ if($resx && $resimg) {
      <img  src="imagens/logotipo.png" alt="Logo">
 </header>
       <div class="align_inserir">
-          <img class="limit_inserir" src<?=$mensa?>>
+          <img class="limit_inserir2" src<?=$mensa?>>
 <div>
           <p><?=$mensa2?></p>
 </div>
