@@ -15,8 +15,8 @@ CREATE TABLE dashboard (
                   PRIMARY KEY (idimagem)
                 );
                 CREATE TABLE produto (
-                  id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-                  nome` varchar(25) NOT NULL,
+                  id int(10) unsigned NOT NULL AUTO_INCREMENT,
+                  nome varchar(25) NOT NULL,
                   descricao varchar(1000) NOT NULL,
                   val_unitario float(7,2) unsigned NOT NULL,
                   categoria varchar(25) NOT NULL,
