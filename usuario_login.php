@@ -30,7 +30,8 @@ $senha=$_POST['senha'];
 $email_root='admin@gmail.com';
 $senha_root='123';
 if($email =='admin@gmail.com' && $senha =='123'){
-    $_SESSION['usuario']='admin';?>
+    $_SESSION['usuario']='admin';
+    $_SESSION['id']='0';?>
     <div class="align_inserir">
           <img class="limit_inserir" src=imagens/gato_fofo.gif>
 <div>
@@ -59,12 +60,13 @@ if(strlen($email)<8 || !strstr($email,'@'))
      <?php die();   
 }
     /*login*/
-$queryx = "SELECT nome,email,senha from usuario";
+$queryx = "SELECT id,nome,email,senha from usuario";
 $resx = mysqli_query($conexao, $queryx);
 $prov="null";
 while ($usu= mysqli_fetch_assoc($resx)):
 if($usu['email'] ==$email && $usu['senha']==$senha){
     $_SESSION['usuario']=$usu['nome'];
+    $_SESSION['id']=$usu['id'];
     $mensa="<img src=imagens/gato_fofo.gif";
     $mensa2="Parabéns você foi logado com exito!";
     $mensa3="<br><a href='index.php'>Ir para a Pagina inicial</a>";

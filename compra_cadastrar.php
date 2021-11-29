@@ -5,9 +5,10 @@ if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());
 }
 $nome=$_SESSION['usuario'];
+$id=$_SESSION['id'];
 $id_produto=implode( ',',$_SESSION["carrinho$nome"]);
 
-$queryx = "INSERT INTO compra(id_cliente,id_produto) values ('$nome','$id_produto')";
+$queryx = "INSERT INTO compra(id_cliente,id_produto) values ('$id','$id_produto')";
 echo mysqli_error($conexao);
 $resx = mysqli_query($conexao, $queryx);
 

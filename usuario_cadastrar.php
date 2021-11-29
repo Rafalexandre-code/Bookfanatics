@@ -110,6 +110,7 @@ if($resx) {
     $mensa2="Parabéns você foi registrado com exito!";
     $mensa3="<br><a href='index.php'>Ir para a Pagina inicial</a>";
     session_start();
+    $_SESSION['id']=mysqli_insert_id($conexao);
     $usuario = $_SESSION['usuario']="$nome";
 
 }else {
