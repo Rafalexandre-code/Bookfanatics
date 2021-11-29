@@ -1,3 +1,11 @@
+<?php
+session_start();
+$conexao = mysqli_connect("localhost", "root", "", "bookfanatics");
+if(!$conexao) {
+    die("Conexao não deu certo" . mysqli_connect_error());
+}
+$nome=$_SESSION['usuario'];
+?>
 <!DOCTYPE html>
 <html>
 
@@ -30,27 +38,26 @@
 
                 <!--produtos-->
 
+     <?php 
+     $valor_tudo=0;
+     $valor_frete=12.50;
+          $carrinho=$_SESSION["carrinho$nome"];
+          foreach($carrinho as $id){      
+    $query ="SELECT * FROM produto WHERE id = '$id'";
+    $retorno = mysqli_query($conexao, $query);
+    $prod=mysqli_fetch_assoc($retorno);
+    $queryimg="SELECT * FROM imagem where idprod='$id'";
 
+    $valor_tudo= $prod['val_unitario']+$valor_tudo;
+?>
                 <div class="carro_final">
                     <div class="name">
-                        <p class="class">PhotoShop</p>
-                        <p>R$90,00</p>
+                        <p class="class"><?= $prod['nome']?></p>
+                        <p>R$<?= $prod['val_unitario']?></p>
                     </div>
                 </div>
+<?php }?>
 
-                <div class="carro_final">
-                    <div class="name">
-                        <p class="class">Avast</p>
-                        <p>R$99,00</p>
-                    </div>
-                </div>
-
-                <div class="carro_final">
-                    <div class="name">
-                        <p class="class">Norton</p>
-                        <p>R$249,00</p>
-                    </div>
-                </div>
             </div>
 
             <!--Pedclasso-->
@@ -59,11 +66,11 @@
 
                 <div class="valor_final">
                     <p>Subtotal:</p>
-                    <p>R$209,99</p>
+                    <p>R$<?= $valor_tudo?></p>
                 </div>
                 <div class="valor_final">
                     <p>Frete:</p>
-                    <p>R$12,00</p>
+                    <p>R$1<?= $valor_frete?></p>
                 </div>
                 <div class="valor2_final">
                     <p>Cupom:</p>
@@ -72,7 +79,7 @@
 
                 <div class="valor_final">
                     <p>Total:</p>
-                    <p>R$204,99</p>
+                    <p><?= $valor_tudo+$valor_frete?></p>
                 </div>
             </div>
         </div>
@@ -87,15 +94,17 @@
 
                 <div>
                     <p class="endereço_final">Possue Cupom de desconto?</p>
-                    <input class="input_final" type="text" placeholder="cupom">
+                    <form method="POST" action="final.php">
+                    <input name="cupom" class="input_final" type="text" placeholder="cupom">
                     <button class="botao_final" type="submit">aplicar</button>
+          </form>
                 </div>
             </div>
             <div class="pag">
                 <h4 class="resumo">Forma de Pagamento</h4>
 
                 <div>
-                    <form method="POST" action="index.php">
+                    <form method="POST" action="compra_cadastrar.php">
                         <div class="forma">
                             <input class="for" name="pag" type="radio" required>
                             <label for="for">Boleto bancario</label>

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $conexao = mysqli_connect("localhost", "root", "", "bookfanatics");
 if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());

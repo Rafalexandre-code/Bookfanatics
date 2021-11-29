@@ -108,9 +108,13 @@ $nome1 = $_FILES["imagem1$ident"]['name'];
 $tamanho1 = $_FILES["imagem1$ident"]['size'];
 $tipo1 = $_FILES["imagem1$ident"]['type'];
 $imagem1 = $_FILES["imagem1$ident"]['tmp_name'];
-print_r($nome1);
 
-$queryimg = "UPDATE imagem SET nome_imagem1='$nome1',tamanho_imagem1='$tamanho1',tipo_imagem1='$tipo1',imagem1='$imagem1' WHERE idprod='$ident'";
+$fp = fopen($imagem1, "rb");
+$conteudo = fread($fp, $tamanho1);
+$conteudo = addslashes($conteudo);
+fclose($fp);
+
+$queryimg = "UPDATE imagem SET nome_imagem1='$nome1',tamanho_imagem1='$tamanho1',tipo_imagem1='$tipo1',imagem1='$conteudo' WHERE idprod='$ident'";
 $resimg = mysqli_query($conexao, $queryimg);
                     }
                     }

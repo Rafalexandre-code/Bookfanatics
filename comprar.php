@@ -1,6 +1,13 @@
+<?php
+session_start();
+$conexao = mysqli_connect("localhost", "root", "", "bookfanatics");
+if(!$conexao) {
+    die("Conexao não deu certo" . mysqli_connect_error());
+}
+$nome=$_SESSION['usuario'][0];
+?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <link rel="shortcut icon" href="imagens/logotipoicon.ico" />
     <title>BookFanatics</title>
@@ -10,34 +17,75 @@
 <body>
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index1.css">
+    <link rel="stylesheet" href="index.css">
 
     <!--Cabeçalho-->
     <header class="logo">
         <img src="imagens/logotipo.png" alt="Logo">
     </header>
 
+    <?php 
+    
+if(isset($_GET['del'])){
+    if(($key = array_search($_GET['del'], $_SESSION["carrinho$nome"])) !== false){
+        unset($_SESSION["carrinho$nome"][$key]);
+    }
+}
+    if(isset($_SESSION['usuario'][0])){
+        if(isset($_GET['id'])){
+            if(isset($_SESSION["carrinho$nome"])){
+            if(in_array($_GET['id'],$_SESSION["carrinho$nome"])) { 
+            }else{
+                $_SESSION["carrinho$nome"][]=$_GET['id'];
+            }
+            }else{
+                $_SESSION["carrinho$nome"][]=$_GET['id'];
+            }
+        }
+ }else{?>
+   <p class="login_cart">você precisa fazer o  <a href="login.php">login</a> primeiro antes de acessar o carrinho</p>
+<?php die();}?>
+
+
     <!--carrinho-->
     <div class="tudo">
 
         <div>
             <p class="meu">MEU CARRINHO</p>
-            <div>
-                <p class="produto"> <span class="span_cart">Produto</span> Quantidade Remover Preço</p>
+            <div class="flex">
+                <p class="span_cart"> Produto</p>
+                <p class="span_cart4"> Quantidade</p>
+                <p class="span_cart2"> Preço</p>
+                <p class="span_cart3"> Remover</p>
             </div>
 
-
             <!--produtos-->
+<form method="POST" action="final.php">
+                
 
-            <form method="POST" action="final.php">
-                <div class="carro">
+<?php 
+$valor_tudo=0;
+$valor_frete=12.50;
+$carrinho=$_SESSION["carrinho$nome"];
+foreach($carrinho as $id){      
+    $query ="SELECT * FROM produto WHERE id = '$id'";
+    $retorno = mysqli_query($conexao, $query);
+    $prod=mysqli_fetch_assoc($retorno);
+    $queryimg="SELECT * FROM imagem where idprod='$id'";
+                    $retornoimg= mysqli_query($conexao, $queryimg);
+                    $retornoimg=mysqli_fetch_assoc($retornoimg);
+                    $imagem='<img class="img_cart" src="data:image/jpeg;base64,'.base64_encode($retornoimg['imagem1']).'"/>';
 
-                    <img class="limitar_img" src="imagens/provisorio/spotify.png">
-                    <div class="name">
-                        <p>PhotoShop</p>
+                    $valor_tudo= $prod['val_unitario']+$valor_tudo;
+?>
+
+
+<div class="carro">
+    <?=$imagem?>
+                    <div class="name_cart">
+                        <p><?= $prod['nome']?></p>
                     </div>
-                    <div class="post">
-
+                    <div class="post_cart">
                         <select class="selecionar">
                             <option>1</option>
                             <option>2</option>
@@ -52,86 +100,34 @@
                             <option>11</option>
                             <option>12</option>
                         </select>
-
-                        <ion-icon class="lixo" name="trash"></ion-icon>
-                        <p class="preço">R$90,00</p>
+                        
+                        
                     </div>
+                    <p class="preco_cart"><?= $prod['val_unitario']?></p>
+                    <a class="lixo_cart" href="comprar.php?del=<?= $id?>"><ion-icon name="trash"></ion-icon></a>
                 </div>
+                
 
+<?php }?>
+         
 
-                <div class="carro">
-
-                    <img class="limitar_img" src="imagens/provisorio/Avast.jpg">
-                    <div class="name">
-                        <p>Avast</p>
-                    </div>
-
-                    <div class="post">
-
-                        <select class="selecionar">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
-                        </select>
-
-                        <ion-icon class="lixo" name="trash"></ion-icon>
-                        <p class="preço">R$99000,00</p>
-                    </div>
-                </div>
-
-                <div class="carro">
-                    <img class="limitar_img" src="imagens/provisorio/Filmora.png">
-                    <div class="name">
-                        <p>Avasthasdsjdh</p>
-                    </div>
-
-                    <div class="post">
-
-                        <select class="selecionar">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
-                        </select>
-
-                        <ion-icon class="lixo" name="trash"></ion-icon>
-                        <p class="preço">R$99000,00</p>
-                    </div>
-                </div>
         </div>
 
         <div class="resultado">
             <h4 class="resumo">Resumo do pedido</h4>
 
             <div class="valor">
-                <p>Subtotal:</p>
-                <p>R$209,99</p>
+                <p>Subtotal: R$</p>
+                <p><?= $valor_tudo?></p>
             </div>
             <div class="valor_frete">
-                <p>Frete:</p>
-                <p>R$12,00</p>
+                <p>Frete: R$</p>
+                <p><?= $valor_frete?></p>
             </div>
 
             <div class="valor">
-                <p>Total:</p>
-                <p>R$214,99</p>
+                <p>Total: R$</p>
+                <p><?= $valor_tudo+$valor_frete?></p>
             </div>
 
             <!--continuar-->

@@ -37,3 +37,9 @@ CREATE TABLE dashboard (
                   uf char(2) DEFAULT NULL,
                   PRIMARY KEY (id)
                 );
+                CREATE TABLE compra (
+                id_compra integer unsigned NOT NULL auto_increment,
+                id_cliente integer NOT NULL,
+                id_produto varchar(255) NOT NULL,
+                PRIMARY KEY(id_compra)
+                );
