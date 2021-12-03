@@ -1,6 +1,7 @@
 <?php
 /*conexao*/
-$conexao = mysqli_connect("localhost", "root", "", "bookfanatics");
+require("funcoes.php");
+$conexao = connect();
 if(!$conexao) {
     echo mysqli_error($conexao);
     die("Conexao não deu certo" . mysqli_connect_error());

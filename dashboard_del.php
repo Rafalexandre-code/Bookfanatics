@@ -1,7 +1,7 @@
 
 <?php
-
-$conexao = mysqli_connect("localhost", "root", "", "bookfanatics");
+require("funcoes.php");
+$conexao = connect();
 if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());
 }

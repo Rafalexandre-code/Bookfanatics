@@ -1,3 +1,7 @@
+<?php
+require("funcoes.php");
+$conexao = connect();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +19,6 @@
      <img  src="imagens/logotipo.png" alt="Logo">
 </header>
 <?php
-$conexao = mysqli_connect("localhost", "root", "", "bookfanatics");
 if(!$conexao) {
     echo mysqli_error($conexao);
     die("Conexao não deu certo" . mysqli_connect_error());

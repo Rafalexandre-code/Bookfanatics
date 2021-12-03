@@ -39,13 +39,13 @@
             <input name="cpf" class="input_form" type="number" placeholder="Ex:123.456.789-12" required>
 
             <p class="form">Cidade:</p>
-            <input name="cidade" class="input_form" type="email" placeholder="Ex:Belo horizonte" required>
+            <input name="cidade" class="input_form" type="text" placeholder="Ex:Belo horizonte" required>
             <p class="form">Endereço:</p>
-            <input name="endereco" class="input_form" type="email" placeholder="Avenida Paulista, 316, apartamento 13" required>
+            <input name="endereco" class="input_form" type="text" placeholder="Avenida Paulista, 316, apartamento 13" required>
             <p class="form">Cep:</p>
-            <input name="cep" class="input_form" type="email" placeholder="Ex:12345-000" required>
+            <input name="cep" class="input_form" type="text" placeholder="Ex:12345-000" required>
             <p class="form">Sigla Unidade Federal:</p>
-            <input name="uf" class="input_form" type="email" placeholder="Ex:SP" required>
+            <input name="uf" class="input_form" type="text" placeholder="Ex:SP" required>
 
             <p class="form">Telefone:</p>
             <input name="tel" class="input_form" type="number" placeholder="Ex:(55) 99999-9999" required>
