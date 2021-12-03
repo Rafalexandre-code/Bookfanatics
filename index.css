@@ -183,36 +183,6 @@ border: 0px solid #000000;
     background-color: white;
 }
 
-
-
-/*destaque
-.destaque {
-    margin-top: 50px;
-    display: flex;
-    margin-right: 400px;
-    border-color: #ff0000;
-    border-style: solid;
-    height: 500px;
-}
-.img {
-    padding: 20px
-}
-.Text {
-    text-align: center;
-}
-.codigo {
-    display: flex
-}
-.codigo2 {
-    font-size: 11px
-}
-.star {
-    padding-top: 9px;
-    padding-left: 2px;
-}
-*/
-
-
 /*Rodape*/
 
 .rodape {

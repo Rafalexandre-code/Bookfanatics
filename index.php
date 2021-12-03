@@ -121,29 +121,8 @@ while($categoria = mysqli_fetch_assoc($retorno2)){?>
     </div>
      <?php endwhile?> 
      </div>
-     <!--
-     <div class="borda">
-      <a href="exibir.php"><img src="Avast.jpg" alt="Avast"></a>
-       <div class="link">
-         <a href="exibir.php">Avast </a>
-       </div>
-       <p class="preço">R$99,00/mês</p>
-     </div>
-
-      <div class="borda">
-        <a href="exibir.php"><img src="Filmora.png" alt="Filmora"></a>
-         <div class="link">
-          <a href="exibir.php">Filmora Pro </a>
-          </div> 
-          <p class="preço">R$359,99/ano</p>
-      </div>
-  </div>
-    -->
-
-    <!--AD
-   <div class="ad">
-      <div class="anun"></div>-->
-      
+     
+     
 <!--Rodape-->
 <footer class="rodape">
         <p>BookFanatics</p>
