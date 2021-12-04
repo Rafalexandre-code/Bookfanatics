@@ -29,6 +29,23 @@ cabecalho();
         </form>
 
      
+        <?php
+        if(isset($_SESSION['usuario'])){
+            $nome= $_SESSION["usuario"]?>
+             <div class="topo">
+            <a class="cart_usu" href="comprar.php">
+                <ion-icon name="cart"></ion-icon>
+            </a>
+                <div class="flex">
+                    <a class="icon_usu" href="login.php">
+                        <ion-icon name="person"></ion-icon>
+                    </a>
+                    <div class="mg8_usu">
+                        <a class="entrar" href="login.php"><?=$nome?></a>
+                    </div>
+        </div>
+            <?php }else{
+        ?>
         <div class="topo">
             <a class="cart" href="comprar.php">
                 <ion-icon name="cart"></ion-icon>
@@ -53,6 +70,7 @@ cabecalho();
                 </div>
             </div>
         </div>
+<?php }?>
         </header>
 
   <!--destaque-->
@@ -72,7 +90,7 @@ cabecalho();
        <h2 class="text_exibir"><?=$exibir['nome']?></h2>
 </div>
          <div>
-           <p class="preço_exibir">R$<?=$exibir['val_unitario']?></p>
+           <p class="preço_exibir">R$<?=number_format($exibir["val_unitario"], 2, ',', '.' )?></p>
 </div>
 </div>
 <div>

@@ -11,10 +11,12 @@ if(!$conexao) {
 /*post*/
 $nome=$_POST['nome'];
 $descricao=$_POST['descricao'];
-$val_unitario=$_POST['val_unitario'];
+$val=$_POST['val_unitario'];
 $categoria=$_POST['categoria'];
 $stock=$_POST['stock'];
-number_format($stock, 2, ',', '.' );
+$val_unitario = preg_replace('/[^0-9]/', '', $val);    
+$val_unitario = bcdiv($val_unitario, 100, 2);
+$val_unitario= strtr($val_unitario, ',', '.');
 /*imagem*/
 $imagem1 = $_FILES['imagem1']['tmp_name'];
 $tamanho1 = $_FILES['imagem1']['size'];

@@ -1,10 +1,7 @@
 <?php
-$conexao = mysqli_connect("localhost", "root", "", "bookfanatics");
-if(!$conexao) {
-    die("Conexao não deu certo" . mysqli_connect_error());
-}
 session_start();
 require('funcoes.php');
+$conexao = connect();
 cabecalho();
 ?>
     <!--Cabeçalho-->
@@ -20,7 +17,7 @@ cabecalho();
 
 
         <div class="carro_dash">
-            <a class="buy_dash" href="comprar.html">
+            <a class="buy_dash" href="index.php">
                 <ion-icon name="cart"></ion-icon>
             </a>
             <a class="carrinho_dash" href="index.php">Pagina inicial</a>
@@ -81,11 +78,12 @@ cabecalho();
                         $retornodel = deletewhere($conexao,'produto','id',$ident);
                         $retornodelimg = deletewhere($conexao,'imagem','idprod',$ident);
                     }
-                    elseif(isset($_POST["stock$ident"])){
+                    elseif(isset($_POST["nome$ident"])){
                     $nome=$_POST["nome$ident"];
                     $stock=$_POST["stock$ident"];
                     $descri=$_POST["descri$ident"];
-                    $queryupd="UPDATE produto SET stock='$stock',nome='$nome',descricao='$descri' WHERE id='$ident'";
+                    $cate=$_POST["categoria$ident"];
+                    $queryupd="UPDATE produto SET stock='$stock',nome='$nome',descricao='$descri',categoria='$cate' WHERE id='$ident'";
                     $retornoupd = mysqli_query($conexao, $queryupd);
 
                     if(isset($_FILES["imagem1$ident"])){
@@ -135,6 +133,22 @@ $idimg=$prod['id'];
                     <label class="stocklabel_dash" for="stock">un</label> 
                     <p class="preco_dash">R$ <?= number_format($prod["val_unitario"], 2, ',', '.' )?></p>
                     
+                    <div class="img_dashmudar">
+     <p class="up_dashmudar">Categoria:</p>
+       <div>
+       <select name="categoria<?=$prod['id']?>" class="cat_cadastroproduto">
+       <option><?= $prod['categoria']?></option>
+<?php 
+$retorno2=select($conexao,'*','dashboard');
+while($categoria = mysqli_fetch_assoc($retorno2)){
+    if($categoria['categoria']!=$prod['categoria']){
+    ?>
+    
+            <option><?=$categoria['categoria']?></option> 
+<?php }}?>         
+        </select>
+</div>
+</div>
      <div class="img_dashmudar">
      <p class="up_dashmudar"><!--Trocar imagens do produto:--></p>
        <div>

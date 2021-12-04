@@ -5,13 +5,31 @@ $conexao = connect();
 if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());
 }
+if(isset($_SESSION['usuario'][0])){
 $nome=$_SESSION['usuario'][0];
-
+}
 cabecalho();
 ?>
     <!--Cabeçalho-->
     <header class="logo">
         <img src="imagens/logotipo.png" alt="Logo">
+        <?php
+        if(isset($_SESSION['usuario'])){
+            $nome= $_SESSION["usuario"]?>
+             <div class="carro_dash">
+            <a class="buy_dash" href="index.php">
+                <ion-icon name="cart"></ion-icon>
+            </a>
+            <a class="carrinho_dash" href="index.php">Pagina inicial</a>
+        </div>
+
+        <div class="minha_dash">
+            <a class="buy_dash" href="Dashboard.php">
+                <ion-icon name="person"></ion-icon>
+            </a>
+            <a class="carrinho_dash" href="*">Minha conta</a>
+        </div>
+            <?php }?>
     </header>
 
     <?php 
@@ -56,6 +74,7 @@ if(isset($_GET['del'])){
 <?php 
 $valor_tudo=0;
 $valor_frete=12.50;
+if(isset($_SESSION["carrinho$nome"])){
 $carrinho=$_SESSION["carrinho$nome"];
 foreach($carrinho as $id){      
     $retorno=selectwhere($conexao,'*','produto','id',$id);
@@ -92,12 +111,12 @@ foreach($carrinho as $id){
                         
                         
                     </div>
-                    <p class="preco_cart"><?= $prod['val_unitario']?></p>
+                    <p class="preco_cart"><?= number_format($prod['val_unitario'], 2, ',', '.' )?></p>
                     <a class="lixo_cart" href="comprar.php?del=<?= $id?>"><ion-icon name="trash"></ion-icon></a>
                 </div>
                 
 
-<?php }?>
+<?php }}?>
          
 
         </div>
@@ -107,16 +126,17 @@ foreach($carrinho as $id){
 
             <div class="valor">
                 <p>Subtotal: R$</p>
-                <p><?= $valor_tudo?></p>
+                <p><?= number_format($valor_tudo, 2, ',', '.' )?></p>
             </div>
             <div class="valor_frete">
                 <p>Frete: R$</p>
-                <p><?= $valor_frete?></p>
+                <p><?= number_format($valor_frete, 2, ',', '.' )?></p>
             </div>
 
             <div class="valor">
                 <p>Total: R$</p>
-                <p><?= $valor_tudo+$valor_frete?></p>
+                <?php $val_tudo2=$valor_tudo+$valor_frete?>
+                <p><?= number_format($val_tudo2, 2, ',', '.' )?></p>
             </div>
 
             <!--continuar-->
