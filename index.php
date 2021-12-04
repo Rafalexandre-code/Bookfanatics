@@ -5,20 +5,9 @@ $conexao = connect();
 if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());
 }
+
+cabecalho();
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="shortcut icon" href="imagens/logotipoicon.ico" />
-    <title>BookFanatics</title>
-    <meta charset="utf-8">
-</head>
-
-<body>
-    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
-
     <!--Cabeçalho-->
     <header class="logo">
             <img src="imagens/logotipo.png" alt="Logo">
@@ -76,12 +65,13 @@ if(!$conexao) {
 <?php
 if(isset($_GET['cate']) && $_GET['cate']!='Tudo'){
 $cate=$_GET['cate'];
+/*
     $query = "SELECT * FROM produto Where categoria='$cate'";
-    $retorno= mysqli_query($conexao, $query);
+    $retorno= mysqli_query($conexao, $query);*/
+    $retorno=selectwhere($conexao,'*','produto','categoria',$cate);
 }
 else{
-    $query = "SELECT * FROM produto";
-    $retorno= mysqli_query($conexao, $query);
+    $retorno=select($conexao,'*','produto');
 }
     ?>
     <!--Em baixo do logo-->
@@ -89,8 +79,8 @@ else{
     <div class="assistencia">
             <p><a class="caminho" href="index.php?cate=Tudo">Tudo</a></p>
         </div>
-        <?php $query2 = "SELECT * from dashboard";
-$retorno2 = mysqli_query($conexao, $query2);
+        <?php 
+        $retorno2 =select($conexao,'*','dashboard');
 while($categoria = mysqli_fetch_assoc($retorno2)){?>
         <div class="assistencia">
             <p><a class="caminho" href="index.php?cate=<?=$categoria['categoria']?>"><?=$categoria['categoria']?></a></p>
@@ -104,8 +94,7 @@ while($categoria = mysqli_fetch_assoc($retorno2)){?>
      <?php while ($prod= mysqli_fetch_assoc($retorno)):?>
         <?php
       $idimg=$prod['id'];
-                    $queryimg="SELECT * FROM imagem where idprod=$idimg";
-                    $retornoimg= mysqli_query($conexao, $queryimg);
+                    $retornoimg= selectwhere($conexao,'*','imagem','idprod',$idimg);
                     $retornoimg=mysqli_fetch_assoc($retornoimg);
                     $imagem='<img class="limit_imgindex" src="data:image/jpeg;base64,'.base64_encode($retornoimg['imagem1']).'"/>';
 ?>
@@ -124,18 +113,4 @@ while($categoria = mysqli_fetch_assoc($retorno2)){?>
      
      
 <!--Rodape-->
-<footer class="rodape">
-        <p>BookFanatics</p>
-        <p><a class="caminho" href="sobre.php">Sobre o BookFanatics</a></p>
-        <p>Atendimento ao cliente:+55(13)98134-4580</p>
-        <div class="email">
-            <ion-icon class="email2" name="mail"></ion-icon>
-            <p>Email:Program@gmail.com</p>
-        </div>
-        <div class="email">
-            <ion-icon name="logo-facebook"></ion-icon>
-            <ion-icon name="logo-instagram"></ion-icon>
-            <ion-icon name="logo-twitter"></ion-icon>
-        </div>
-     </footer>
-</body>
+<?php rodape();?>

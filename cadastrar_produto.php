@@ -4,18 +4,9 @@ $conexao = connect();
 if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());
 }
+
+cabecalho();
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="shortcut icon" href="imagens/logotipoicon.ico" />
-  <title>BookFanatics</title>
-  <meta charset="utf-8">
-</head>
-<body>
-  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
 
      <!--Cabeçalho-->
      <header class="logo">
@@ -50,8 +41,8 @@ if(!$conexao) {
               <textarea name="descricao" class="lgbar_cadastroproduto" placeholder="Max Caracteres = 1000"></textarea>
         <p>Categoria:</p>
          <select name="categoria" class="cat_cadastroproduto">
-<?php $query2 = "SELECT * from dashboard";
-$retorno2 = mysqli_query($conexao, $query2);
+<?php 
+$retorno2=select($conexao,'*','dashboard');
 while($categoria = mysqli_fetch_assoc($retorno2)){?>
             <option><?=$categoria['categoria']?></option> 
 <?php }?>         

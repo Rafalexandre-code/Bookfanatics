@@ -5,30 +5,17 @@ $conexao = connect();
 if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());
 }
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="shortcut icon" href="imagens/logotipoicon.ico" />
-    <title>BookFanatics</title>
-    <meta charset="utf-8">
-</head>
-<body>
-    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
-
-    <?php
 $id = $_GET["id"];
 $conexao = mysqli_connect("localhost", "root", "", "bookfanatics");
 if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());
 } 
-$query = "SELECT * FROM produto WHERE id = '$id'";
-$retorno = mysqli_query($conexao, $query);
+$retorno = selectwhere($conexao,'*','produto','id',$id);
 $exibir = mysqli_fetch_assoc($retorno);
 $nome = $exibir["nome"];
 $descri = $exibir["descricao"];
+
+cabecalho();
 ?>
     <!--Cabeçalho-->
     <header class="logo">
@@ -75,8 +62,7 @@ $descri = $exibir["descricao"];
   <div class="flex_exibir">
     
     <?php
-                    $queryimg="SELECT * FROM imagem where idprod=$id";
-                    $retornoimg= mysqli_query($conexao, $queryimg);
+                    $retornoimg=selectwhere($conexao,'*','imagem','idprod',$id); 
                     $retornoimg=mysqli_fetch_assoc($retornoimg);
                     $imagem='<img class="img_exibir" src="data:image/jpeg;base64,'.base64_encode($retornoimg['imagem1']).'"/>';
 ?>

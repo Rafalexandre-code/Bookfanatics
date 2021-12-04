@@ -1,19 +1,9 @@
 <?php
 require("funcoes.php");
 $conexao = connect();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="shortcut icon" href="imagens/logotipoicon.ico" />
-  <title>BookFanatics</title>
-  <meta charset="utf-8">
-</head>
-<body>
-  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
 
+cabecalho();
+?>
      <!--Cabeçalho-->
      <header class="logo">
      <img  src="imagens/logotipo.png" alt="Logo">

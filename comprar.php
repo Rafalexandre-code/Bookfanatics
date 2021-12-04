@@ -6,20 +6,9 @@ if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());
 }
 $nome=$_SESSION['usuario'][0];
+
+cabecalho();
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="shortcut icon" href="imagens/logotipoicon.ico" />
-    <title>BookFanatics</title>
-    <meta charset="utf-8">
-</head>
-
-<body>
-    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
-
     <!--Cabeçalho-->
     <header class="logo">
         <img src="imagens/logotipo.png" alt="Logo">
@@ -69,11 +58,10 @@ $valor_tudo=0;
 $valor_frete=12.50;
 $carrinho=$_SESSION["carrinho$nome"];
 foreach($carrinho as $id){      
-    $query ="SELECT * FROM produto WHERE id = '$id'";
-    $retorno = mysqli_query($conexao, $query);
+    $retorno=selectwhere($conexao,'*','produto','id',$id);
     $prod=mysqli_fetch_assoc($retorno);
-    $queryimg="SELECT * FROM imagem where idprod='$id'";
-                    $retornoimg= mysqli_query($conexao, $queryimg);
+
+    $retornoimg=selectwhere($conexao,'*','imagem','idprod',$id);
                     $retornoimg=mysqli_fetch_assoc($retornoimg);
                     $imagem='<img class="img_cart" src="data:image/jpeg;base64,'.base64_encode($retornoimg['imagem1']).'"/>';
 

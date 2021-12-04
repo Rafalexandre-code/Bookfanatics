@@ -5,20 +5,8 @@ $conexao = connect();
 if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());
 }
+cabecalho();
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="shortcut icon" href="imagens/logotipoicon.ico" />
-    <title>BookFanatics</title>
-    <meta charset="utf-8">
-</head>
-
-<body>
-    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
-
     <!--Cabeçalho-->
     <header class="logo">
             <img src="imagens/logotipo.png" alt="Logo">
@@ -82,15 +70,15 @@ if(!$conexao) {
             <form method="POST" action="dashboard.php">
             <button class="editar_dash" type="submit">Estoque</button>
 </div>
-                <?php $query = "SELECT * FROM produto";
-                    $retorno= mysqli_query($conexao, $query);?>
-                 <?php while ($prod= mysqli_fetch_assoc($retorno)):?>
+                <?php 
+                $retorno=select($conexao,'*','produto');
+
+                 while ($prod= mysqli_fetch_assoc($retorno)):?>
                 <div class="carro">
 <div class="img_limit2">
 <?php
 $idimg=$prod['id'];
-                    $queryimg="SELECT * FROM imagem where idprod=$idimg";
-                    $retornoimg= mysqli_query($conexao, $queryimg);
+$retornoimg=selectwhere($conexao,'*','imagem','idprod',$idimg);
                     $retornoimg=mysqli_fetch_assoc($retornoimg);
                     $imagem='<img class="img_limit" src="data:image/jpeg;base64,'.base64_encode($retornoimg['imagem1']).'"/>';
 ?>

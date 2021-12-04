@@ -1,25 +1,12 @@
 <?php
-
-require("funcoes.php");
-$conexao = connect();
+$conexao = mysqli_connect("localhost", "root", "", "bookfanatics");
 if(!$conexao) {
     die("Conexao não deu certo" . mysqli_connect_error());
 }
 session_start();
+require('funcoes.php');
+cabecalho();
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="shortcut icon" href="imagens/logotipoicon.ico" />
-    <title>BookFanatics</title>
-    <meta charset="utf-8">
-</head>
-
-<body>
-    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
-
     <!--Cabeçalho-->
     <header class="logo">
             <img src="imagens/logotipo.png" alt="Logo">
@@ -85,15 +72,14 @@ session_start();
             <button class="stockbotao_dash" type="submit">Salvar</button>
 
 </div>
-<?php            $query2 = "SELECT * FROM produto";
-                    $retorno2= mysqli_query($conexao, $query2);?>
-                 <?php while ($prod2= mysqli_fetch_assoc($retorno2)):
+<?php            
+                    $retorno2= select($conexao,'*','produto');
+                    
+                    while ($prod2= mysqli_fetch_assoc($retorno2)):
                  $ident=$prod2['id'];
                     if(isset($_POST["id_del$ident"])){
-                        $querydel = "DELETE FROM produto WHERE id= '$ident'";
-                        $retornodel = mysqli_query($conexao, $querydel);
-                        $querydelimg = "DELETE FROM imagem WHERE idprod= '$ident'";
-                        $retornodelimg = mysqli_query($conexao, $querydelimg);
+                        $retornodel = deletewhere($conexao,'produto','id',$ident);
+                        $retornodelimg = deletewhere($conexao,'imagem','idprod',$ident);
                     }
                     elseif(isset($_POST["stock$ident"])){
                     $nome=$_POST["nome$ident"];
@@ -110,13 +96,15 @@ $tamanho1 = $_FILES["imagem1$ident"]['size'];
 $tipo1 = $_FILES["imagem1$ident"]['type'];
 $imagem1 = $_FILES["imagem1$ident"]['tmp_name'];
 
+/*trocar imagem
+print_r($_FILES["imagem1$ident"]['tmp_name']);
 $fp = fopen($imagem1, "rb");
 $conteudo = fread($fp, $tamanho1);
 $conteudo = addslashes($conteudo);
 fclose($fp);
 
 $queryimg = "UPDATE imagem SET nome_imagem1='$nome1',tamanho_imagem1='$tamanho1',tipo_imagem1='$tipo1',imagem1='$conteudo' WHERE idprod='$ident'";
-$resimg = mysqli_query($conexao, $queryimg);
+$resimg = mysqli_query($conexao, $queryimg);*/
                     }
                     }
                     
@@ -124,16 +112,16 @@ $resimg = mysqli_query($conexao, $queryimg);
                     <?php endwhile?> 
 
                 
-                <?php $conexao = mysqli_connect("localhost", "root", "", "bookfanatics");
-                $query = "SELECT * FROM produto";
-                    $retorno= mysqli_query($conexao, $query);?>
-                 <?php while ($prod= mysqli_fetch_assoc($retorno)):?>
+                <?php 
+                $conexao = connect();
+                    $retorno= select($conexao,'*','produto');
+                    
+                    while ($prod= mysqli_fetch_assoc($retorno)):?>
                 <div class="carro">
 <div class="img_limit2">
 <?php
 $idimg=$prod['id'];
-                    $queryimg="SELECT * FROM imagem where idprod=$idimg";
-                    $retornoimg= mysqli_query($conexao, $queryimg);
+                    $retornoimg= selectwhere($conexao,'*','imagem','idprod',$idimg);
                     $retornoimg=mysqli_fetch_assoc($retornoimg);
                     $imagem='<img class="img_limit" src="data:image/jpeg;base64,'.base64_encode($retornoimg['imagem1']).'"/>';
 ?>
@@ -146,10 +134,11 @@ $idimg=$prod['id'];
                     <input name="stock<?=$prod['id']?>" class="stock_dash" type="number" value="<?= $prod['stock']?>">
                     <label class="stocklabel_dash" for="stock">un</label> 
                     <p class="preco_dash">R$ <?= number_format($prod["val_unitario"], 2, ',', '.' )?></p>
+                    
      <div class="img_dashmudar">
-     <p class="up_dashmudar">Trocar imagens do produto:</p>
+     <p class="up_dashmudar"><!--Trocar imagens do produto:--></p>
        <div>
-     <input name="imagem1<?=$prod['id']?>" class="file_cadastroproduto" type="file">
+       <!--<input name="imagem1<?/*=$prod['id']*/?>" class="file_cadastroproduto" type="file">-->
 </div>
 </div>
                         <div>
@@ -162,7 +151,5 @@ $idimg=$prod['id'];
                 </form>
 
         </div>
-
-</body>
 
 </html>
